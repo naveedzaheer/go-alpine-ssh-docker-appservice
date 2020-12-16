@@ -25,8 +25,9 @@ COPY . .
 RUN go-wrapper download
 RUN go-wrapper install
 
-ENV SSH_PORT 2222
-EXPOSE 2222 8080
+ENV PORT=8080
+ENV PORT_SSH=2222
+EXPOSE $PORT $PORT_SSH
 
 #CMD ["go-wrapper", "run"]
 ENTRYPOINT ["/opt/startup/init_container.sh"]

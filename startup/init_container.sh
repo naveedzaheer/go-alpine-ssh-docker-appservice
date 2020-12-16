@@ -2,7 +2,7 @@
 
 
 echo "Starting SSH ..."
-service sshd start
+/usr/sbin/sshd
 
 echo "Starting Go ..."
 go-wrapper run
