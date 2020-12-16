@@ -4,16 +4,16 @@ languages:
 - go
 products:
 - azure
-description: "This sample demonstrates a Hello World Go app for App Service Linux: Web app for containers"
-urlFragment: go-docs-hello-world
+description: "This sample demonstrates a Hello World Go app for App Service Linux: Web app for containers with SSH support enabled. It is derived from an App Service tutorial."
+urlFragment: go-alpine-ssh-docker-appservice
 ---
 
 # Go Hello World
 
-This sample demonstrates a Hello World Go app for App Service Linux: Web app for containers
+This sample demonstrates a Hello World Go app for App Service Linux: Web app for containers with SSH support enabled. It is derived from an App Service tutorial. It has the SSH support added. 
 
 ## Quickstart
-
+Please see this 
 https://docs.microsoft.com/azure/app-service/containers/quickstart-docker-go
 
 ## Contributing
