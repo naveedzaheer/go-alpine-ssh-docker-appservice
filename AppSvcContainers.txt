@@ -1,0 +1,40 @@
+https://docs.microsoft.com/en-us/azure/app-service/tutorial-custom-container?pivots=container-linux
+
+
+https://blog.kloud.com.au/2017/08/22/preparing-your-docker-container-for-azure-app-services/
+
+FROM node:12.18.1-alpine
+
+ 
+
+#SSH Server support
+ENV SSH_PASSWD "root:Docker!"
+RUN apk --update --no-cache  add openssh \
+    && echo "$SSH_PASSWD" | chpasswd
+
+ 
+
+#Expose ports for Node app and SSH
+EXPOSE 8082 2222
+ENV PORT 8082
+
+ 
+
+#Startup script to run two commands at the same time
+COPY sshd_config /etc/ssh/
+COPY startup.sh /tmp/init.sh
+RUN chmod 777 /tmp/init.sh
+
+ 
+
+#Create ssh host keys needed for sshd service to start successfully when we run "/usr/sbin/sshd -D &" on the init script
+RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa
+RUN ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa
+RUN ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t dsa
+RUN ssh-keygen -f /etc/ssh/ssh_host_ed25519_key -N '' -t dsa
+RUN mkdir -p /var/run/sshd
+
+ 
+
+#Execute startup script
+CMD [ "sh", "/tmp/init.sh" ]
